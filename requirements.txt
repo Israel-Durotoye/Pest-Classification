@@ -3,3 +3,4 @@ tensorflow
 numpy
 PIL
 gdown
+zipfile

@@ -8,7 +8,7 @@ import gdown
 import zipfile
 
 # Download the dataset from Google Drive
-dataset_url = "https://drive.google.com/uc?export=download&id=<FILE_ID>"  # Replace <FILE_ID>
+dataset_url = "https://drive.google.com/file/d/1mgL4QlllxXCjETTN89iZtAciomx5pwtt/view?usp=sharing"  # Replace <FILE_ID>
 dataset_output = "pestdata.zip"
 
 if not os.path.exists("pestdata/train"):

@@ -5,16 +5,35 @@ from PIL import Image
 import os
 import random
 import gdown
+import zipfile
 
-url = "https://drive.google.com/uc?export=download&id=1fnQOvlcQ3hjs7SPJJrf8EnKiui_Ukthu"
-output = "pest_classification_model.h5"
-gdown.download(url, output, quiet=False)
+# Download the dataset from Google Drive
+dataset_url = "https://drive.google.com/uc?export=download&id=<FILE_ID>"  # Replace <FILE_ID>
+dataset_output = "pestdata.zip"
+
+if not os.path.exists("pestdata/train"):
+    st.write("Downloading dataset...")
+    gdown.download(dataset_url, dataset_output, quiet=False)
+
+    # Extract the dataset
+    st.write("Extracting dataset...")
+    with zipfile.ZipFile(dataset_output, 'r') as zip_ref:
+        zip_ref.extractall(".")  # Extract to the current directory
+    st.write("Dataset extracted successfully!")
 
 # Load the pre-trained model
-model = tf.keras.models.load_model("pest_classification_model.h5")
+model_url = "https://drive.google.com/uc?export=download&id=1fnQOvlcQ3hjs7SPJJrf8EnKiui_Ukthu"
+model_output = "pest_classification_model.h5"
+
+if not os.path.exists(model_output):
+    st.write("Downloading model...")
+    gdown.download(model_url, model_output, quiet=False)
+
+model = tf.keras.models.load_model(model_output)
 
 # Define class names
-class_names = {0: 'ants', 1: 'bees', 2: 'beetle', 3: 'catterpillar', 4: 'earthworms', 5: 'earwig', 6: 'grasshopper', 7: 'moth', 8: 'slug', 9: 'snail', 10: 'wasp', 11: 'weevil'}
+class_names = {0: 'ants', 1: 'bees', 2: 'beetle', 3: 'catterpillar', 4: 'earthworms', 5: 'earwig',
+               6: 'grasshopper', 7: 'moth', 8: 'slug', 9: 'snail', 10: 'wasp', 11: 'weevil'}
 
 # Function to preprocess the image
 def preprocess_image(image):
